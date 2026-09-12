@@ -41,6 +41,10 @@ jobs:
           sh dl_toolchain.sh
       - name: Start build
         run: |
+          sudo apt-get update
+          sudo apt-get install -y libtool libtool-bin autoconf automake pkg-config
+          sudo apt-get install --reinstall -y libtool
+          export ACLOCAL_PATH=/usr/share/aclocal:$ACLOCAL_PATH
           cd trunk
           mkdir -p ${images_dir}
           for m in $targets; do fakeroot ./build_firmware_ci $m; \
